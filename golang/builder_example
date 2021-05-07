@@ -10,5 +10,5 @@ RUN VERSION=$(git name-rev --name-only HEAD)-$(git rev-parse --short HEAD) && \
 
 FROM basefly/alpine:v3.13.5
 WORKDIR /app
-COPY --from=builder /build/ccs-core ccs-core
+COPY --from=builder /build/xxx xxx
 CMD ./xxx
