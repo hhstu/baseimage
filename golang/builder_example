@@ -1,11 +1,12 @@
-FROM basefly/golang:1.16.4-alpine AS builder
+FROM --platform=linux/amd64 basefly/golang:1.16.4-alpine AS builder
 WORKDIR /build
-### copy your code
+ARG TARGETARCH
 COPY . .
-RUN VERSION=$(./git.sh) && \
+RUN VERSION=$(git name-rev --name-only HEAD)-$(git rev-parse --short HEAD) && \
     echo  $VERSION && \
-    go build -ldflags="-s -w -X github.com/xxx/xxx/pkg.Version=${VERSION}"  -o xxx ./cmd && \
+    GOARCH=${TARGETARCH} go build -ldflags="-s -w -X github.com/xxx/xxx/pkg.Version=${VERSION}"  -o xxx ./cmd && \
     upx ./xxx
+
 
 FROM basefly/alpine:v3.13.5
 WORKDIR /app
