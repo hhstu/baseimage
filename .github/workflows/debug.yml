@@ -18,5 +18,4 @@ jobs:
     - name: Build the Docker image
       run: |
         docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} 
-        pwd
-        docker  buildx build -t basefly/alpine  --platform=linux/arm,linux/arm64,linux/amd64  debug/Dockerfile  --push
+        docker  buildx build -t basefly/alpine  --platform=linux/arm,linux/arm64,linux/amd64  /home/runner/work/baseimage/baseimage/debug/Dockerfile  --push
