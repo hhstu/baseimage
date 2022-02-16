@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 set -xe
-k8sImageTag=v1.21.9
+k8sImageTag=v1.23.3
 chmod +x ./k8s/kubeadm
 k8sImageNames=$(./k8s/kubeadm   config images   list   --kubernetes-version=${k8sImageTag} )
 
