@@ -2,7 +2,7 @@
 set -xe
 k8sImageTag=v1.22.10
 chmod +x ./k8s/kubeadm
-k8sImageNames=$(./k8s/kubeadm   config images   list   --kubernetes-version=${k8sImageTag})
+k8sImageNames="("$(./k8s/kubeadm   config images   list   --kubernetes-version=${k8sImageTag})")"
 
 for each in "${k8sImageNames[@]}"
 do
