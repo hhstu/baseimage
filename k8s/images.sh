@@ -7,7 +7,7 @@ k8sImageNames=$(./k8s/kubeadm   config images   list   --kubernetes-version=${k8
 for each in ${k8sImageNames};
 do
   echo  "FROM" ${each} > Dockerfile
-  docker buildx build -t basefly${each##k8s.io}  --platform=linux/arm,linux/arm64,linux/amd64   . --push
+  docker buildx build -t basefly${each##k8s.gcr.io}  --platform=linux/arm,linux/arm64,linux/amd64   . --push
 done
 
 #echo  "FROM" k8s.gcr.io/metrics-server/metrics-server:v0.3.1 > Dockerfile
