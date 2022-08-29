@@ -15,5 +15,7 @@ jobs:
       run: |
         docker buildx create --use
         docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} 
-        echo 'FROM gcr.io/datadoghq/operator:0.8.1' > Dockerfile
-        docker  buildx build -t basefly/datadoghq-operator:0.8.1    --platform=linux/arm64,linux/amd64  .  --push
+        echo 'FROM gcr.io/datadoghq/agent:latest' > Dockerfile
+        docker  buildx build -t basefly/datadoghq-cluster-agent   --platform=linux/arm64,linux/amd64  .  --push
+        echo 'FROM gcr.io/datadoghq/agent:latest' > Dockerfile
+        docker  buildx build -t basefly/datadoghq-cluster-agent   --platform=linux/arm64,linux/amd64  .  --push
