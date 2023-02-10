@@ -1,0 +1,24 @@
+name: golang
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: |
+        echo 'FROM golang:1.20.0-alpine AS builder
+LABEL stage=gobuilder
+ENV CGO_ENABLED=0 GOOS=linux GOPROXY=https://goproxy.cn,direct
+RUN echo http://mirrors.aliyun.com/alpine/v3.10/main/ > /etc/apk/repositories && \
+    echo http://mirrors.aliyun.com/alpine/v3.10/community/ >> /etc/apk/repositories && \
+    apk update  --no-cache && \
+    apk add --no-cache  git upx'  > Dockerfile
+        docker buildx create --use
+        docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
+        docker  buildx build -t basefly/golang/${{ github.event.inputs.tag }}-alpine  --platform=linux/arm,linux/arm64,linux/amd64   --push
