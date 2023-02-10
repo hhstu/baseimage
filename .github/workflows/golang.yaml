@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the Docker image
         run: |
-          echo "FROM golang:1.20.0-alpine AS builder
+          echo "FROM golang:${{ github.event.inputs.tag }}-alpine AS builder
           LABEL stage=gobuilder
           ENV CGO_ENABLED=0 GOOS=linux GOPROXY=https://goproxy.cn,direct
           RUN echo http://mirrors.aliyun.com/alpine/v3.10/main/ > /etc/apk/repositories && \
