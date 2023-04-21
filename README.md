@@ -1,7 +1,7 @@
 # baseimage
 
 ```shell
-docker  buildx  create  --use
+docker  buildx  create  --use --name builder --driver docker-container --driver-opt  network=host --node mulit-archs --buildkitd-flags '--allow-insecure-entitlement security.insecure'
 docker  buildx build -t basefly/alpine:3.13.5  --platform=linux/arm,linux/arm64,linux/amd64  ./alpine  --push
 ```
 
