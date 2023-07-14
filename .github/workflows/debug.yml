@@ -15,4 +15,4 @@ jobs:
       run: |
         docker buildx create --use
         docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} 
-        docker  buildx build -t basefly/alpine  --platform=linux/arm,linux/arm64,linux/amd64  ./debug/.  --push
+        docker  buildx build -t basefly/debug  --platform=linux/arm,linux/arm64,linux/amd64  ./debug/.  --push
