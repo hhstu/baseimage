@@ -5,4 +5,4 @@ RUN echo http://mirrors.aliyun.com/alpine/v3.10/main/ > /etc/apk/repositories &&
     apk add --no-cache fio ca-certificates \ 
         tzdata nghttp2-libs curl tcpdump upx \
         git iperf3 busybox-extras mysql-client \
-        bash
+        bash bind-tools
