@@ -1,0 +1,20 @@
+name: golang-ceph
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: |
+          echo "FROM golang:${{ github.event.inputs.tag }}
+          RUN apt update && apt install  libcephfs-dev librbd-dev librados-dev -y"  > Dockerfile
+          
+          docker buildx create --use
+          docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
+          docker  buildx build -t basefly/golang:${{ github.event.inputs.tag }}-ceph . --platform=linux/arm64,linux/amd64   --push
