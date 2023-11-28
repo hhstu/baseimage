@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
+        description: 'go version 如: 1.21.4'
 
 jobs:
   build:
