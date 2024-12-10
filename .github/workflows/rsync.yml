@@ -1,0 +1,28 @@
+name: rsync
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: |
+          echo "FROM ubuntu:24.04
+          RUN echo '[data] \
+             path = /data \
+             read only = false \
+             uid = root \
+             gid = root' > /etc/rsyncd.conf
+          RUN apt update  && \
+              apt  install --no-install-recommends rsync  curl -y && \
+              apt-get clean &&  rm -rf /var/lib/apt/lists/*
+          CMD rsync --daemon && tail -f /dev/null"  > Dockerfile
+          cat Dockerfile
+          docker buildx create --use
+          docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
+          docker  buildx build -t basefly/rsync:${{ github.event.inputs.tag }} . --platform=linux/arm,linux/arm64,linux/amd64   --push
