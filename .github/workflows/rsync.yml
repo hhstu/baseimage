@@ -19,7 +19,7 @@ jobs:
              uid = root\n \
              gid = root\n' > /etc/rsyncd.conf
           RUN apt update  && \
-              apt  install --no-install-recommends rsync  curl -y && \
+              apt  install --no-install-recommends rsync  curl ca-certificates -y && \
               apt-get clean &&  rm -rf /var/lib/apt/lists/*
           CMD rsync --daemon && tail -f /dev/null"  > Dockerfile
           cat Dockerfile
