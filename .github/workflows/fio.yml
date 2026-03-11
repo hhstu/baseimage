@@ -11,7 +11,7 @@ jobs:
       - name: Build the Docker image
         run: |
           echo "FROM rockylinux/rockylinux:9
-          RUN dnf install fio -y && dnf clean all; \
+          RUN dnf install fio jq -y && dnf clean all; \
               rm -rf /var/cache/dnf/* /tmp/* /var/tmp/*
           CMD tail -f /dev/null "  > Dockerfile
           docker buildx create --use
